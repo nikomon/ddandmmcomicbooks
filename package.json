@@ -38,7 +38,7 @@
   "bugs": {
     "url": "https://github.com/nikomon/ddandmmcomicbooks/issues"
   },
-  "homepage": "https://github.com/nikomon/ddandmmcomicbooks#readme",
+  "homepage": "./",
   "browserslist": {
     "production": [
       ">0.2%",
