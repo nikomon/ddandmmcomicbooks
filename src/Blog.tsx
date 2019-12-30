@@ -3,40 +3,61 @@ import { Query, QueryState, QueryProps } from 'react-contentful';
 import { IBlogPost } from '../@types/generated/contentful';
 import ReactMarkdown from 'react-markdown';
 import { Author } from './Author';
+import { BlogContext } from './BlogContext';
  
-export const Blog = (props: any) => (  
-  <Query
-    contentType="Blog Post"
-    id="3K9b0esdy0q0yGqgW2g6Ke"
+interface Results {
+  items: IBlogPost[]
+}
+
+export const Blog = (props: any) => ( 
+  <BlogContext.Consumer>
+        { 
+        value => value ? value
+        .find((val: any) => {
+          console.log(val.slug, props.match.params.slug);
+          
+          return val.slug === props.match.params.slug
+        })
+        .map((item: any) => {
+          console.log(item);
+          
+          return (
+            <>
+            <h1>{item.title}</h1>
+            <ReactMarkdown source={item.body}/>
+            {item.author ? <Author author={item.author}/> : null}
+            </>
+          );
+        }) : null
+        }
+  </BlogContext.Consumer>  
+);
+
+{/* <Query
+    contentType="blogPost"
+    query={{ 'fields.slug[in]': `/${props.match.params.slug || ''}`, }}
   >
-    {/* query={{
-      'fields.slug[in]': `/${props.match.params.slug || 'homepage'}`,
-    }} */}
-    {({data, error, fetched, loading}: { data: IBlogPost, error: string, fetched: any, loading: any}) => {
+    {({data, error, fetched, loading}: { data: Results, error: string, fetched: any, loading: any}) => {
       if (loading || !fetched) {
         return null;
-      }
- 
+      }      
       if (error) {
-        console.error(error);
         return null;
       }
  
       if (!data) {
         return <p>Page does not exist.</p>;
       }
- 
-      // See the Contentful query response
-      console.log(data);
-      console.log(props.match.params.slug);
-      const { fields: { author, body } } = data;
-      // Process and pass in the loaded `data` necessary for your page or child components.
-      return (
-      <div>
-        {body ? <ReactMarkdown source={body}/> : null}
-        {author ? <Author author={author}/> : null}
-      </div>
-      );
+
+      if (data.items.length > 0) {
+        const { fields: { author, body, title } } = data.items[0];
+        return (
+        <div>
+          <h1>{title}</h1>
+          <ReactMarkdown source={body}/>
+          {author ? <Author author={author}/> : null}
+        </div>
+        );
+      }     
     }}
-  </Query>
-);
+  </Query> */}

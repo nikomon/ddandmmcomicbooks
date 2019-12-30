@@ -44,7 +44,29 @@ export interface IBlogPost extends Entry<IBlogPostFields> {
       };
     };
   };
-  fields: IBlogPostFields
+  fields: IBlogPostFields;
+}
+
+export interface INavigationFields {
+  /** navigationItem */
+  navigationItem?: IBlogPost[] | undefined;
+}
+
+export interface INavigation extends Entry<INavigationFields> {
+  sys: {
+    id: string;
+    type: string;
+    createdAt: string;
+    updatedAt: string;
+    locale: string;
+    contentType: {
+      sys: {
+        id: "navigation";
+        linkType: "ContentType";
+        type: "Link";
+      };
+    };
+  };
 }
 
 export interface IPersonFields {
@@ -94,10 +116,10 @@ export interface IPerson extends Entry<IPersonFields> {
       };
     };
   };
-  fields: IPersonFields
+  fields: IPersonFields;
 }
 
-type CONTENT_TYPE = "blogPost" | "person";
+type CONTENT_TYPE = "blogPost" | "navigation" | "person";
 
 type LOCALE_CODE = "en-US";
 
