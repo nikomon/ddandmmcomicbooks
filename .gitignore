@@ -3,6 +3,9 @@ node_modules
 /.pnp
 .pnp.js
 
+# static content
+src/content
+
 # testing
 /coverage
 
