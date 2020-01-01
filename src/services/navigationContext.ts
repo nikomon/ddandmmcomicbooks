@@ -8,6 +8,7 @@ export interface NavigationItem {
     slug: string;
     description: string;
     createdAt: string;
+    body: any;
 }
 
 export function dynamicSort(property: keyof NavigationItem, sortOrder: number) {
@@ -26,8 +27,10 @@ function getMenuItems(): Array<NavigationItem> {
         const { navigationItem } = nav;
         return navigationItem.map(({ id }) => {
             const post = getPost(id);
-            const { slug, description, title, createdAt  } = post;
-            return { slug, description, title, createdAt, id };
+            return {
+                ...post,
+                id
+            }
         }).sort(dynamicSort('createdAt', 1));
     } catch(e) {
         return [];
