@@ -139,7 +139,7 @@ export const Navigation = () => {
               <NavLink key={item.id} to={'/blogs' + item.slug}>
                 <ListItem button>
                   <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                  <ListItemText primary={`${index <= 10 ? 0 : ''}${index + 1}.${item.title}`} />
+                  <ListItemText primary={item.title} />
                 </ListItem>
               </NavLink>
 
