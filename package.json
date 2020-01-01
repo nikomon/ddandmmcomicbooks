@@ -25,8 +25,8 @@
   "scripts": {
     "start": "react-scripts start",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "react-scripts build",
-    "postbuild": "npx contentful-hugo@git+https://github.com/nikomon/contentful-hugo && cp -r src/content build/"
+    "prebuild": "npx contentful-hugo@git+https://github.com/nikomon/contentful-hugo && cp -r src/content build/",
+    "build": "react-scripts build"
   },
   "repository": {
     "type": "git",
